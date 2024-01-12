@@ -1,0 +1,88 @@
+version: "3.1"
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+intents:
+  - inquery_time
+  - greet
+  - goodbye
+  - affirm
+  - stop
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - appointment_inquery
+
+forms:
+  simple_booking_form:
+    required_slots:
+      - first_name
+      - last_name
+      - date_of_birth
+
+slots:
+  first_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: simple_booking_form
+            requested_slot: first_name
+
+  last_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: simple_booking_form
+            requested_slot: last_name
+
+  date_of_birth:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: simple_booking_form
+            requested_slot: date_of_birth
+
+responses:
+  utter_greet:
+    - text: Hey! How may help you?
+  utter_cheer_up:
+    - text: "Here is something to cheer you up:"
+      image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+    - text: Did that help you?
+  utter_happy:
+    - text: Great, carry on!
+  utter_goodbye:
+    - text: Bye
+  utter_iamabot:
+    - text: I am a bot, powered by Synsoft.
+  utter_submit:
+    - text: I will now book an appointment for you after you fill the form!
+  utter_booking_slots:
+    - text: Thank you for your response. Anything else you want?
+  utter_ask_continue:
+    - text: Are you sure you want to stop the form?
+  utter_ask_first_name:
+    - text: To book an appointment, please enter your first name.
+  utter_ask_last_name:
+    - text: Now, please enter your last name.
+  utter_ask_date_of_birth:
+    - text: Now, please enter your date of birth in dd/mm/yyyy format.
+  utter_appointment_inquery:
+    - text: your recent appointment booked on 15/12/2023 at 3 PM.
+
+actions:
+  - utter_ask_continue
+  - utter_goodbye
+  - utter_greet
+  - utter_booking_slots
+  - utter_submit
+  - validate_simple_booking_form

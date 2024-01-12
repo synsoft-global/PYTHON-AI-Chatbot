@@ -1,0 +1,18 @@
+marker_start_end_booking_form:
+  seq:
+    - intent: inquery_time
+    - action: utter_submit
+
+marker_full_name_not_set_immediately:
+  seq:
+    - intent: inquery_time
+    - not:
+        - slot_was_set: full_name
+    - slot_was_set: full_name
+
+marker_date_of_birth_not_set_immediately:
+  seq:
+    - intent: inquery_time
+    - not:
+        - slot_was_set: date_of_birth
+    - slot_was_set: date_of_birth
